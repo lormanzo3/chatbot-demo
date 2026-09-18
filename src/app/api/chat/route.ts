@@ -11,7 +11,10 @@ export async function POST(request: Request) {
         model: "claude-haiku-4-5-20251001",
         max_tokens: 1024,
         messages: [
-            { reole: "user", content: message },
+            { role: "user", content: message },
         ],
-    })
+    });
+    const reply = response.content[0].text;
+
+    return NextResponse.json({ reply });
 }
