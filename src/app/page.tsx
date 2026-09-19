@@ -11,12 +11,21 @@ export default function Home() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
 
-  function handleSend() {
+  async function handleSend() {
     if (!input.trim()) return;
     const newMessage: Message = { role: "user", content: input };
     setMessages([...messages, newMessage]);
     setInput("");
+    const response = await fetch("/api/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: newMessage.content }),
+    });
+    const data = await response.json();
+    const assistantMessage: Message = { role:  "assistant", content: data.reply };
+    setMessages([...messages, newMessage, assistantMessage]);
   }
+  
   return (
     <div className="min-h-screen p-4 bg-white text-black">
       {messages.map((message, index) => (
