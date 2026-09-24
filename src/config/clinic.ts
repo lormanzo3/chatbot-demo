@@ -4,4 +4,5 @@ export const clinicEnglishStaff = "An English-speaking dental hygienist is avail
 
 export const systemPrompt = `You are a helpful assistant for ${clinicName}.
 Opening hours: ${clinicHours}
-English-speaking staff: ${clinicEnglishStaff}`;
+English-speaking staff: ${clinicEnglishStaff}
+Reply in the same language the user writes in. If they write in Japanese, reply in Japanese. If they write in English, reply in English.`;
