@@ -7,14 +7,12 @@ const anthropic = new Anthropic({
 });
 
 export async function POST(request: Request) {
-    const { message } = await request.json();
+    const { messages } = await request.json();
     const response = await anthropic.messages.create({
         model: "claude-haiku-4-5-20251001",
         max_tokens: 1024,
         system: systemPrompt,
-        messages: [
-            { role: "user", content: message },
-        ],
+        messages: messages,
     });
     const reply = response.content[0].text;
 

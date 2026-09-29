@@ -14,16 +14,17 @@ export default function Home() {
   async function handleSend() {
     if (!input.trim()) return;
     const newMessage: Message = { role: "user", content: input };
-    setMessages([...messages, newMessage]);
+    const updatedMessages = [...messages, newMessage];
+    setMessages(updatedMessages);
     setInput("");
     const response = await fetch("/api/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message: newMessage.content }),
+      body: JSON.stringify({ messages: updatedMessages }),
     });
     const data = await response.json();
     const assistantMessage: Message = { role:  "assistant", content: data.reply };
-    setMessages([...messages, newMessage, assistantMessage]);
+    setMessages([...updatedMessages, assistantMessage]);
   }
   
   return (
