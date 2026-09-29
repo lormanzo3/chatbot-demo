@@ -36,6 +36,11 @@ export default function Home() {
         value={input}
         onChange={(e) => setInput(e.target.value)}
         className="border border-gray-400 px-2 py-1"
+        onKeyDown={(e) => {
+          if (e.key === "Enter" && !e.nativeEvent.isComposing) {
+            handleSend();
+          }
+        }}
       />
       <button onClick={handleSend} className="ml-2 px-3 py-1 bg-blue-500 text-white rounded">
         Send</button>
